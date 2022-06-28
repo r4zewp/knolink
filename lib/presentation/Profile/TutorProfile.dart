@@ -1,11 +1,20 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knolink/datasources/env/env.dart';
 import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
+import 'package:knolink/presentation/MainWrapper.dart';
+import 'package:knolink/presentation/bloc/auth/auth_bloc.dart';
+import 'Settings.dart';
 import 'Utils/ProfileCustomTile.dart';
 
 class TutorProfile extends StatefulWidget {
-  TutorProfile({Key? key}) : super(key: key);
+  const TutorProfile(
+      {Key? key, required this.username, required this.university})
+      : super(key: key);
+
+  final String username;
+  final String university;
 
   @override
   State<TutorProfile> createState() => _TutorProfileState();
@@ -60,18 +69,18 @@ class _TutorProfileState extends State<TutorProfile> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            "locuraa",
-                            style: TextStyle(
+                            widget.username,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: primaryFontFamily,
                               fontWeight: FontWeight.w700,
                               fontSize: 32,
                             ),
                           ),
-                          Text(
-                            "1000 руб.",
+                          const Text(
+                            "0 руб.",
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: primaryFontFamily,
@@ -79,6 +88,14 @@ class _TutorProfileState extends State<TutorProfile> {
                               fontSize: 16,
                             ),
                           ),
+                          IconButton(
+                              onPressed: () {
+                                BlocProvider.of<AuthBloc>(context)
+                                    .add(LoggedOut());
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const MainWrapper()));
+                              },
+                              icon: const Icon(Icons.add)),
                         ],
                       ),
                     ),
@@ -89,7 +106,13 @@ class _TutorProfileState extends State<TutorProfile> {
                 child: Column(
                   children: [
                     ProfileCustomTile(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Settings(),
+                          ),
+                        );
+                      },
                       label: "Настройки",
                       isRightArrowNeeded: true,
                     ),

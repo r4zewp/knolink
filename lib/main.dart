@@ -12,7 +12,7 @@ void main() {
       runApp(MultiBlocProvider(providers: [
         BlocProvider(
           create: (context) => AuthBloc()..add(AppStarted()),
-        )
+        ),
       ], child: const Root()));
     },
     blocObserver: LoggedBlocDelegate(),
@@ -27,28 +27,6 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
-  @override
-  void initState() {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.immersiveSticky,
-      overlays: [SystemUiOverlay.top],
-    );
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.transparent,
-        statusBarColor: Colors.transparent,
-        systemNavigationBarContrastEnforced: true,
-      ),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

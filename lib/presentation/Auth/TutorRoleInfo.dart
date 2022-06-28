@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knolink/presentation/Auth/Utils/TutorAddNickname.dart';
 import 'package:knolink/presentation/Auth/Utils/TutorAddUni.dart';
+
+import '../bloc/tutor/tutor_bloc.dart';
 
 class TutorAdd extends StatefulWidget {
   const TutorAdd({Key? key}) : super(key: key);

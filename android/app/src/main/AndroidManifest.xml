@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.knolink">
    <application
-        android:label="knolink"
+        android:label="KNOLINK"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

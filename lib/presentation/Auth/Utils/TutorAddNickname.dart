@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
 import '../../../datasources/env/env.dart';
+import '../../bloc/tutor/tutor_bloc.dart';
 
 class TutorAddNickname extends StatefulWidget {
   const TutorAddNickname({Key? key, required this.pagec}) : super(key: key);
@@ -89,7 +91,6 @@ class _TutorAddNicknameState extends State<TutorAddNickname> {
                     child: TextField(
                       scrollPadding: EdgeInsets.zero,
                       controller: nameController,
-                      autofocus: true,
                       showCursor: false,
                       cursorHeight: 26,
                       cursorColor: Colors.black,
@@ -134,14 +135,25 @@ class _TutorAddNicknameState extends State<TutorAddNickname> {
                       setState(() => isPressed = true);
                       if (errorText != null) {
                       } else {
+                        /// saving uname
+                        BlocProvider.of<TutorBloc>(context)
+                            .add(TutorFilledUname(uname: nameController.text));
+
+                        /// disabling prev textfield
+                        if (!FocusScope.of(context).hasPrimaryFocus) {
+                          FocusScope.of(context).unfocus();
+                        }
+
+                        /// transition to next page
                         widget.pagec.nextPage(
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.decelerate);
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.decelerate,
+                        );
                       }
                     },
                     style: TextButton.styleFrom(
-                      primary: Colors.black,
-                      backgroundColor: Colors.white,
+                      primary: Colors.white,
+                      backgroundColor: const Color(0xff6969B3),
                       splashFactory: NoSplash.splashFactory,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -150,7 +162,7 @@ class _TutorAddNicknameState extends State<TutorAddNickname> {
                     child: const Text(
                       "Далее",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontFamily: primaryFontFamily,
                         fontSize: 24,
                         fontWeight: FontWeight.w500,

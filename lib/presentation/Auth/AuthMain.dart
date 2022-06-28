@@ -24,7 +24,6 @@ class _AuthMainState extends State<AuthMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: BlocBuilder<SignBloc, SignState>(
         builder: (context, state) {
           if (state is UserInputtingCode) {

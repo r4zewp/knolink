@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knolink/datasources/env/env.dart';
 import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
-import 'package:knolink/presentation/bloc/app/app_bloc.dart';
 
 import 'Utils/ProfileCustomTile.dart';
 
@@ -37,22 +35,20 @@ class _SettingsState extends State<Settings> {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) => Center(
-          child: SizedBox(
-            width: screenSize.width * 0.911,
-            child: Padding(
-              padding: EdgeInsets.only(top: screenSize.height * 0.025),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ProfileCustomTile(
-                    onPressed: () {},
-                    label: "Вывести средства",
-                    isRightArrowNeeded: true,
-                  ),
-                ],
-              ),
+      body: Center(
+        child: SizedBox(
+          width: screenSize.width * 0.911,
+          child: Padding(
+            padding: EdgeInsets.only(top: screenSize.height * 0.025),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ProfileCustomTile(
+                  onPressed: () {},
+                  label: "Вывести средства",
+                  isRightArrowNeeded: true,
+                ),
+              ],
             ),
           ),
         ),

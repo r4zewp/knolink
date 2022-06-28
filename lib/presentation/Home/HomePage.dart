@@ -6,7 +6,16 @@ import '../Orders/CustomerHistoryOfOrders.dart';
 import '../Orders/CustomerMyOrders.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({
+    Key? key,
+    required this.type,
+    this.university,
+    required this.username,
+  }) : super(key: key);
+
+  final String username;
+  final String? university;
+  final String type;
 
   @override
   State<Home> createState() => _HomeState();
@@ -19,8 +28,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -28,15 +35,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    /// customer view
     List<Widget> customerPages = [
-      const MyOrders(),
+      MyOrders(
+        type: widget.type,
+      ),
       const CustomerOrdersHistory(),
-      CustomerProfile(),
+      CustomerProfile(
+        username: widget.username,
+      ),
     ];
+
+    /// tutor view
     List<Widget> tutorPages = [
-      const MyOrders(),
+      MyOrders(
+        type: widget.type,
+      ),
       const CustomerOrdersHistory(),
-      TutorProfile(),
+      TutorProfile(
+        username: widget.username,
+        university: widget.university!,
+        
+      ),
     ];
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -100,13 +120,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ],
               ),
             ),
-            SizedBox(
-              height: screenSize.height * 0.9,
-              child: TabBarView(
-                controller: tabController,
-                children: customerPages,
+            if (widget.type == "customer")
+              SizedBox(
+                height: screenSize.height * 0.9,
+                child: TabBarView(
+                  controller: tabController,
+                  children: customerPages,
+                ),
               ),
-            ),
+            if (widget.type == "tutor")
+              SizedBox(
+                height: screenSize.height * 0.9,
+                child: TabBarView(
+                  controller: tabController,
+                  children: tutorPages,
+                ),
+              ),
           ],
         ),
       ),

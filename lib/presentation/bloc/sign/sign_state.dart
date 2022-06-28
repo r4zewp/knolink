@@ -12,3 +12,8 @@ class SignError extends SignState {
 }
 
 class UserInputtingCode extends SignState {}
+
+class UserCodeCheck extends SignState {
+  bool isCodeTrue;
+  UserCodeCheck({required this.isCodeTrue});
+}
