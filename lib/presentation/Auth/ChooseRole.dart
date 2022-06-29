@@ -5,6 +5,8 @@ import 'package:knolink/presentation/Auth/CustomerRoleInfo.dart';
 import 'package:knolink/presentation/Auth/TutorRoleInfo.dart';
 import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
 import 'package:knolink/presentation/Utils/PrimaryButton.dart';
+import 'package:knolink/presentation/bloc/customer/customer_bloc.dart';
+import 'package:knolink/presentation/bloc/tutor/tutor_bloc.dart';
 
 class ChooseRole extends StatefulWidget {
   const ChooseRole({Key? key}) : super(key: key);
@@ -14,6 +16,11 @@ class ChooseRole extends StatefulWidget {
 }
 
 class _ChooseRoleState extends State<ChooseRole> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -43,13 +50,24 @@ class _ChooseRoleState extends State<ChooseRole> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             PrimaryButton(
-              color: Colors.white,
-              textColor: Colors.black,
+              color: const Color(0xff6969B3),
+              textColor: Colors.white,
+              shadowColor: Colors.black,
               title: "Заказчик",
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const CustomerAdd(),
+                    builder: (context) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider(
+                          create: (context) => CustomerBloc()
+                            ..add(
+                              CustomerChosen(),
+                            ),
+                        ),
+                      ],
+                      child: const CustomerAdd(),
+                    ),
                   ),
                 );
               },
@@ -58,13 +76,17 @@ class _ChooseRoleState extends State<ChooseRole> {
               height: screenSize.height * 0.025,
             ),
             PrimaryButton(
-              textColor: Colors.black,
-              color: Colors.white,
+              textColor: Colors.white,
+              color: const Color(0xff6969B3),
+              shadowColor: Colors.black,
               title: "Исполнитель",
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const TutorAdd(),
+                    builder: (context) => BlocProvider(
+                      create: (context) => TutorBloc()..add(TutorChosen()),
+                      child: const TutorAdd(),
+                    ),
                   ),
                 );
               },

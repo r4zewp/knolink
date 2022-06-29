@@ -9,25 +9,23 @@ class OrderTile extends StatelessWidget {
     required this.title,
     this.date,
     this.time,
+    required this.type,
     required this.orderType,
+    required this.onPressed,
   }) : super(key: key);
 
   final String title;
   final String? date;
   final String? time;
+  final String? type;
   final IconData orderType;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const OrderDetailed(),
-          ),
-        );
-      },
+      onTap: onPressed,
       child: Padding(
         padding: EdgeInsets.fromLTRB(
           screenSize.width * 0.022,
@@ -83,35 +81,6 @@ class OrderTile extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              right: screenSize.width * 0.044,
-                              top: screenSize.height * 0.00625,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  date!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: primaryFontFamily,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  time!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: primaryFontFamily,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -123,9 +92,9 @@ class OrderTile extends StatelessWidget {
                             padding: EdgeInsets.only(
                               left: screenSize.width * 0.044,
                             ),
-                            child: const Text(
-                              "Консультация",
-                              style: TextStyle(
+                            child: Text(
+                              type == "" ? "Консультация" : type!,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: primaryFontFamily,

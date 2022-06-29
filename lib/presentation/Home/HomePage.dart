@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:knolink/datasources/env/env.dart';
+import 'package:knolink/presentation/Orders/FindOrders.dart';
 import 'package:knolink/presentation/Profile/CustomerProfile.dart';
-import 'package:knolink/presentation/Profile/TutorProfile.dart';
 import '../Orders/CustomerHistoryOfOrders.dart';
 import '../Orders/CustomerMyOrders.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({
+    Key? key,
+    required this.type,
+    this.university,
+    required this.username,
+  }) : super(key: key);
+
+  final String username;
+  final String? university;
+  final String type;
 
   @override
   State<Home> createState() => _HomeState();
@@ -18,9 +27,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
-
-    // TODO: implement initState
+    tabController =
+        TabController(length: widget.type == "customer" ? 3 : 4, vsync: this);
     super.initState();
   }
 
@@ -28,17 +36,105 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> customerPages = [
-      const MyOrders(),
-      const CustomerOrdersHistory(),
-      CustomerProfile(),
+    /// customer view
+    List<Widget> pagesWithSort = [
+      FindOrders(type: widget.type),
+      MyOrders(type: widget.type),
+      CustomerOrdersHistory(type: widget.type),
+      CustomerProfile(type: widget.type),
     ];
-    List<Widget> tutorPages = [
-      const MyOrders(),
-      const CustomerOrdersHistory(),
-      TutorProfile(),
+
+    /// tutor view
+    List<Widget> defaultPages = [
+      MyOrders(type: widget.type),
+      CustomerOrdersHistory(type: widget.type),
+      CustomerProfile(type: widget.type),
     ];
+
     Size screenSize = MediaQuery.of(context).size;
+
+    List<Widget> defaultTabs = [
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "Активные заказы",
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "История заказов",
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "Профиль",
+        ),
+      ),
+    ];
+
+    List<Widget> tabsWithSort = [
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "Найти заказ",
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "Активные заказы",
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "История заказов",
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+          screenSize.width * 0.022,
+          screenSize.height * 0.0125 * 2,
+        ),
+        child: const Text(
+          "Профиль",
+        ),
+      ),
+    ];
     return Scaffold(
       body: SingleChildScrollView(
         controller: scrollController,
@@ -63,50 +159,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   fontWeight: FontWeight.w700,
                   fontSize: 24,
                 ),
-                tabs: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                    ),
-                    child: const Text(
-                      "Активные заказы",
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                    ),
-                    child: const Text(
-                      "История заказов",
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                      screenSize.width * 0.022,
-                      screenSize.height * 0.0125 * 2,
-                    ),
-                    child: const Text(
-                      "Профиль",
-                    ),
-                  ),
-                ],
+                tabs: widget.type == "customer" ? defaultTabs : tabsWithSort,
               ),
             ),
-            SizedBox(
-              height: screenSize.height * 0.9,
-              child: TabBarView(
-                controller: tabController,
-                children: customerPages,
+            if (widget.type == "customer")
+              SizedBox(
+                height: screenSize.height * 0.9,
+                child: TabBarView(
+                  controller: tabController,
+                  children: defaultPages,
+                ),
               ),
-            ),
+            if (widget.type == "tutor")
+              SizedBox(
+                height: screenSize.height * 0.9,
+                child: TabBarView(
+                  controller: tabController,
+                  children: pagesWithSort,
+                ),
+              ),
           ],
         ),
       ),

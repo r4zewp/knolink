@@ -17,14 +17,12 @@ class _AuthMainState extends State<AuthMain> {
   @override
   void initState() {
     BlocProvider.of<SignBloc>(context).add(SignStarted());
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: BlocBuilder<SignBloc, SignState>(
         builder: (context, state) {
           if (state is UserInputtingCode) {

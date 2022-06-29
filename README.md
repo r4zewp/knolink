@@ -1,20 +1,16 @@
-# Client-side of KNOLINK Mobile App
-## Made by
-Leonid Knyazev
+# knolink
 
-Nikita Vasilyev
+A new Flutter project.
 
-Tigran Arustamov
-## Made with
-Flutter & Dart
+## Getting Started
 
-## Developer team
-Kirill Zubarev
+This project is a starting point for a Flutter application.
 
-Nikita Vasilyev
+A few resources to get you started if this is your first Flutter project:
 
-Tigran Arustamov
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-Leonid Knyazev
-
-Alexey Vu
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

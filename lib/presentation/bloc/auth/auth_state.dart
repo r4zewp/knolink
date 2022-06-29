@@ -6,7 +6,16 @@ class AuthUninitialized extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class AuthAuthenticated extends AuthState {}
+class AuthAuthenticatedTutor extends AuthState {
+  String uni;
+  String uname;
+  AuthAuthenticatedTutor({required this.uni, required this.uname});
+}
+
+class AuthAuthenticatedCustomer extends AuthState {
+  String uname;
+  AuthAuthenticatedCustomer({required this.uname});
+}
 
 class AuthUnauthenticated extends AuthState {}
 

@@ -47,8 +47,9 @@ class _WelcomeState extends State<Welcome> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     PrimaryButton(
-                      color: Colors.white,
-                      textColor: Color(0xff2f2f2f),
+                      color: const Color(0xff6969B3),
+                      textColor: Colors.white,
+                      shadowColor: Colors.black,
                       title: "Войти",
                       onPressed: () async {
                         Navigator.of(context).push(
