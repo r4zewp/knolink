@@ -5,7 +5,9 @@ import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
 import 'Utils/ProfileCustomTile.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({Key? key, required this.type}) : super(key: key);
+
+  final String type;
 
   @override
   State<Settings> createState() => _SettingsState();

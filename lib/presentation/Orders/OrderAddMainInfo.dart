@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:knolink/presentation/bloc/order/order_bloc.dart';
 
 import '../../../datasources/env/env.dart';
 import '../Utils/PrimaryButton.dart';
@@ -16,6 +18,12 @@ class _OrderAddMainInfoState extends State<OrderAddMainInfo> {
   String dropdownSubjectFirstValue = subjectsList[0];
   String dropdownTypeFirstValue = orderTypesList[0];
   TextEditingController commentController = TextEditingController();
+
+  void gotoNextPage() => widget.pagec.animateToPage(
+        1,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.decelerate,
+      );
 
   @override
   void dispose() {
@@ -201,11 +209,14 @@ class _OrderAddMainInfoState extends State<OrderAddMainInfo> {
                             title: "Далее",
                             shadowColor: Colors.black,
                             onPressed: () {
-                              widget.pagec.animateToPage(
-                                1,
-                                duration: const Duration(milliseconds: 200),
-                                curve: Curves.decelerate,
+                              /// TODO: ADD VALIDATION OF FULLFILLMENT
+                              BlocProvider.of<OrderBloc>(context).add(
+                                OrderMainInfoSaved(
+                                  subject: dropdownSubjectFirstValue,
+                                  type: dropdownTypeFirstValue,
+                                ),
                               );
+                              gotoNextPage();
                             },
                           ),
                         ),

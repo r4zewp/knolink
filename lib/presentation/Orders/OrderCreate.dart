@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knolink/datasources/env/env.dart';
 import 'package:knolink/presentation/Auth/Utils/PrimaryBackButton.dart';
 import 'package:knolink/presentation/Utils/PrimaryButton.dart';
 
+import '../bloc/order/order_bloc.dart';
 import 'OrderAddComment.dart';
 import 'OrderAddMainInfo.dart';
 
@@ -47,14 +49,17 @@ class _OrderCreateState extends State<OrderCreate>
           ),
         ),
       ),
-      body: PageView(
-        controller: pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: [
-          OrderAddMainInfo(pagec: pageController),
-          const OrderAddComment(),
-        ],
+      body: BlocProvider(
+        create: (context) => OrderBloc(),
+        child: PageView(
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          children: [
+            OrderAddMainInfo(pagec: pageController),
+            OrderAddComment(pagec: pageController),
+          ],
+        ),
       ),
     );
   }

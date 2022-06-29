@@ -94,7 +94,7 @@ class _TutorAddUnivState extends State<TutorAddUniv> {
                       height: screenSize.height * 0.025 / 2,
                     ),
                     Text(
-                      "Не более 10 символов, используйте аббревиатуру",
+                      "Не более 10 символов, используйте аббревиатуры",
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.5),
                         fontFamily: primaryFontFamily,

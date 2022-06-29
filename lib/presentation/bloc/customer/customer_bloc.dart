@@ -19,7 +19,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
       (event, emit) async {
         try {
           final userPrefs = await _storage.readUserPrefs();
-          final res = _repo.applyCustomer(
+          final res = await _repo.applyCustomer(
             userPrefs["uid"],
             event.uname,
             userPrefs["authCode"],
@@ -28,6 +28,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
           if (res is! bool) {
             await _storage.saveUserToken(res.toString());
             await _storage.saveUsername(event.uname);
+            await _storage.saveUserType("customer");
             emit(CustomerDone(
               uname: event.uname,
             ));

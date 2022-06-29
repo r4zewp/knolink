@@ -17,7 +17,6 @@ class _AuthMainState extends State<AuthMain> {
   @override
   void initState() {
     BlocProvider.of<SignBloc>(context).add(SignStarted());
-    // TODO: implement initState
     super.initState();
   }
 

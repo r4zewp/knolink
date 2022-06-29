@@ -42,8 +42,7 @@ class _CodeConfirmState extends State<CodeConfirm> {
       .add(CodeCheckTriggered(code: code, uid: uid));
 
   void gotoRoleChoice() => Navigator.of(context).push(PageTransition(
-      child: const ChooseRole(),
-      type: PageTransitionType.leftToRightWithFade));
+      child: const ChooseRole(), type: PageTransitionType.leftToRightWithFade));
 
   /// function to clear fields
   void clearField() => codeController.clear();

@@ -6,8 +6,8 @@ part 'sign_event.dart';
 part 'sign_state.dart';
 
 class SignBloc extends Bloc<SignEvent, SignState> {
-  CustomApi _client = CustomApi();
-  SecureStorage _storage = SecureStorage();
+  final CustomApi _client = CustomApi();
+  final SecureStorage _storage = SecureStorage();
   SignBloc() : super(SignInitialState()) {
     on<SignStarted>(
       (event, emit) async {
@@ -25,16 +25,15 @@ class SignBloc extends Bloc<SignEvent, SignState> {
     on<CodeCheckTriggered>(
       (event, emit) async {
         try {
-          dynamic _response = await _client.confirmCode(event.uid, event.code);
-          if (_response is! bool) {
+          dynamic response = await _client.confirmCode(event.uid, event.code);
+          if (response is! bool) {
             _storage.saveUserPrefs(
-                _response["TelNum"], _response["Id"], event.code + event.uid);
+                response["TelNum"], response["Id"], event.code + event.uid);
             emit(UserCodeCheck(isCodeTrue: true));
           } else {
             emit(UserCodeCheck(isCodeTrue: false));
           }
         } catch (e) {
-          print(e.toString());
           emit(SignError(e: e.toString()));
         }
       },
