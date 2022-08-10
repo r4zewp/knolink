@@ -18,10 +18,6 @@ class ChooseRole extends StatefulWidget {
 class _ChooseRoleState extends State<ChooseRole> {
   @override
   void initState() {
-<<<<<<< HEAD
-=======
-    // TODO: implement initState
->>>>>>> f8c0844cfc4a4fb1803db47ee45e3cffa2e855e0
     super.initState();
   }
 

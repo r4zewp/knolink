@@ -31,8 +31,12 @@ class _MainWrapperState extends State<MainWrapper> {
                   animation: DelayedAnimations.SLIDE_FROM_BOTTOM,
                   child: MultiBlocProvider(
                     providers: [
-                      BlocProvider(create: (context) => OrderBloc()),
-                      BlocProvider(create: (context) => ProfileBloc()),
+                      BlocProvider(
+                        create: (context) => OrderBloc(),
+                      ),
+                      BlocProvider(
+                        create: (context) => ProfileBloc(),
+                      ),
                     ],
                     child: Home(
                       type: "tutor",
@@ -44,7 +48,7 @@ class _MainWrapperState extends State<MainWrapper> {
               ),
             );
           }
-          if (state is AuthAuthenticatedCustomer) {
+          if (state is AuthUnauthenticated) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => DelayedWidget(
@@ -58,7 +62,7 @@ class _MainWrapperState extends State<MainWrapper> {
                     ],
                     child: Home(
                       type: "customer",
-                      username: state.uname,
+                      username: "locura",
                       university: "none",
                     ),
                   ),
@@ -66,7 +70,7 @@ class _MainWrapperState extends State<MainWrapper> {
               ),
             );
           }
-          if (state is AuthUnauthenticated) {
+          if (state is AuthAuthenticatedCustomer) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => DelayedWidget(

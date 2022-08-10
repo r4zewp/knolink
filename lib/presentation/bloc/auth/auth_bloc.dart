@@ -45,23 +45,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     on<LoggedInTutor>(
       (event, emit) {
-<<<<<<< HEAD
         emit(AuthAuthenticatedTutor(
           uname: event.uname,
           uni: event.uni,
         ));
-=======
-        emit(AuthAuthenticatedTutor(uname: event.uname, uni: event.uni));
->>>>>>> f8c0844cfc4a4fb1803db47ee45e3cffa2e855e0
       },
     );
     on<LoggedOut>(
       (event, emit) {
-<<<<<<< HEAD
-        _storage.deleteAll();
-=======
         _storage.revokeToken();
->>>>>>> f8c0844cfc4a4fb1803db47ee45e3cffa2e855e0
         emit(AuthUnauthenticated());
       },
     );
